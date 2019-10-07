@@ -3,14 +3,20 @@ import { Route, Link, Redirect } from "react-router-dom";
 import "./App.scss";
 import Login from "./components/Login";
 import Friends from "./components/Friends";
+import AddFriend from "./components/AddFriend";
+import UpdateFriend from "./components/UpdateFriend";
 import Secret from "./components/Secret";
+import Home from "./components/Home";
 function App() {
+  const signOut = () => {
+    localStorage.removeItem("token");
+  };
   const PrivateRoute = ({ component: Component, ...rest }) => (
     <Route
       {...rest}
       render={props =>
         localStorage.getItem("token") ? (
-          localStorage(<Component {...props} />)
+          <Component {...props} />
         ) : (
           <Redirect to="/Login" />
         )
@@ -20,7 +26,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <h1>Auth Friends</h1>
+        <h1>Authenticate Your Friends</h1>
         <div className="nav">
           <nav-item>
             <Link to="/">Home</Link>
@@ -32,15 +38,24 @@ function App() {
             <Link to="/Friends">Friends</Link>
           </nav-item>
           <nav-item>
+            <Link to="/AddFriend">Add Friend</Link>
+          </nav-item>
+          <nav-item>
             <Link to="/Secret">Secret</Link>
+          </nav-item>
+          <nav-item onClick={() => signOut()}>
+            <a href="#">Sign out</a>
           </nav-item>
         </div>
       </header>
-      <Route exact path="/">
-        <div>Home</div>
-      </Route>
+      <PrivateRoute exact path="/" component={Home}></PrivateRoute>
       <Route path="/Login" component={Login}></Route>
-      <Route path="/Friends" component={Friends}></Route>
+      <PrivateRoute path="/Friends" component={Friends}></PrivateRoute>
+      <PrivateRoute path="/AddFriend" component={AddFriend}></PrivateRoute>
+      <PrivateRoute
+        path="/UpdateFriend/:id"
+        component={UpdateFriend}
+      ></PrivateRoute>
       <PrivateRoute path="/Secret" component={Secret}></PrivateRoute>
     </div>
   );

@@ -4,7 +4,7 @@
   width: 100%;
 
   .App-header {
-    background-color: #282c34;
+    background-color: purple;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -15,21 +15,24 @@
     margin-bottom: 20px;
 
     .nav {
-      width: 50%;
+      width: 90%;
       display: flex;
       justify-content: space-evenly;
       align-items: center;
+      margin: 10px;
 
       a {
-        border: 1px solid white;
+        background: lightgray;
+        border: 2px solid black;
         text-decoration: none;
-        color: white;
+        color: black;
         padding: 5px;
         border-radius: 3px;
 
         &:hover {
-          color: lightgray;
-          background: gray;
+          color: white;
+          background: black;
+          border: 2px solid white;
         }
       }
     }
@@ -40,11 +43,19 @@
     width: 60%;
     margin: 0 auto;
     padding: 20px;
+    border: 2px solid black;
 
     input,
     button {
       margin: 10px;
       font-size: 1.5rem;
+      border: 2px solid black;
+    }
+
+    button {
+      padding: 3px;
+      background: purple;
+      color: white;
     }
   }
 }
